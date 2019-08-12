@@ -1,7 +1,6 @@
 #include <ntdef.h>
 #include <ntifs.h>
 
-
 DRIVER_INITIALIZE DriverEntry;
 #pragma alloc_text(INIT, DriverEntry)
 
@@ -22,11 +21,10 @@ NTKERNELAPI
 NTSTATUS
 PsLookupProcessByProcessId(
 	_In_ HANDLE ProcessId,
-	_Outptr_ PEPROCESS *Process
+	_Outptr_ PEPROCESS* Process
 );
 
-NTSTATUS KeReadProcessMemory(PEPROCESS Process, PVOID SourceAddress, PVOID TargetAddress, SIZE_T Size)
-{
+NTSTATUS KeReadProcessMemory(PEPROCESS Process, PVOID SourceAddress, PVOID TargetAddress, SIZE_T Size) {
 	// Since the process we are reading from is the input process, we set
 	// the source process variable for that.
 	PEPROCESS SourceProcess = Process;
@@ -39,9 +37,10 @@ NTSTATUS KeReadProcessMemory(PEPROCESS Process, PVOID SourceAddress, PVOID Targe
 	else
 		return STATUS_ACCESS_DENIED;
 }
-NTSTATUS KeWriteProcessMemory(PEPROCESS Process, PVOID SourceAddress, PVOID TargetAddress, SIZE_T Size)
-{       // This write func is just like the read func, except vice versa.
-	
+
+NTSTATUS KeWriteProcessMemory(PEPROCESS Process, PVOID SourceAddress, PVOID TargetAddress, SIZE_T Size) {
+	// This write func is just like the read func, except vice versa.
+
 	// Since the process writing from is our module
 	// change the source process variable for that.
 	PEPROCESS SourceProcess = PsGetCurrentProcess();
@@ -57,11 +56,7 @@ NTSTATUS KeWriteProcessMemory(PEPROCESS Process, PVOID SourceAddress, PVOID Targ
 
 }
 
-
-NTSTATUS DriverEntry(
-	_In_  struct _DRIVER_OBJECT *DriverObject,
-	_In_  PUNICODE_STRING RegistryPath
-)
+NTSTATUS DriverEntry(_In_  struct _DRIVER_OBJECT* DriverObject, _In_  PUNICODE_STRING RegistryPath)
 {
 	int Writeval = 666;
 
