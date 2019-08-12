@@ -61,7 +61,6 @@ NTSTATUS KeWriteProcessMemory(PEPROCESS Process, PVOID SourceAddress, PVOID Targ
 		return STATUS_SUCCESS; // operation was successful
 	else
 		return STATUS_ACCESS_DENIED;
-
 }
 
 NTSTATUS DriverEntry(_In_  struct _DRIVER_OBJECT* DriverObject, _In_  PUNICODE_STRING RegistryPath)
